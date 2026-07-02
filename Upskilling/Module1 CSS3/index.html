@@ -14,7 +14,7 @@
   <body onbeforeunload="return warnUnfinishedForm(event);">
     <!-- Navigation -->
     <nav>
-      <h1 style="color: red;">Local Community Event Portal</h1>
+      <h1 style="color: red">Local Community Event Portal</h1>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#events">Events</a></li>
@@ -68,11 +68,6 @@
             Photos from Past Community Events
           </caption>
           <tr>
-            <th>Event One</th>
-            <th>Event Two</th>
-            <th>Event Three</th>
-          </tr>
-          <tr>
             <td class="eventCard">
               <img
                 src="Exercise1.jpg"
@@ -107,7 +102,7 @@
           <tr>
             <td class="eventCard">
               <img
-                src="Exercise4.jpg"
+                src="Exercise4.png"
                 alt="Residents visiting a local health camp"
                 title="Health Camp"
                 class="event-image"
@@ -117,7 +112,7 @@
             </td>
             <td class="eventCard">
               <img
-                src="Exercise1.jpg"
+                src="Exercise5.jpg"
                 alt="Children and adults browsing books at a community book fair"
                 title="Book Fair"
                 class="event-image"
@@ -127,7 +122,7 @@
             </td>
             <td class="eventCard">
               <img
-                src="Exercise2.jpg"
+                src="Exercise6.jpg"
                 alt="Performers on stage during a community music night"
                 title="Music Night"
                 class="event-image"
@@ -163,7 +158,12 @@
           <input type="date" id="eventDate" name="eventDate" required />
 
           <label for="eventType">Event Type</label>
-          <select id="eventType" name="eventType" onchange="saveEventPreference()" required>
+          <select
+            id="eventType"
+            name="eventType"
+            onchange="saveEventPreference()"
+            required
+          >
             <option value="">Select an event type</option>
             <option value="cleanup">Community Cleanup</option>
             <option value="festival">Festival</option>
@@ -233,39 +233,6 @@
           </button>
           <output id="feedbackConfirmation"></output>
         </form>
-
-        <h3>Box Model Visibility Demo</h3>
-        <div class="box-model-demo">
-          <p class="visibility-demo">Visible box</p>
-          <p class="visibility-demo hidden-box">Hidden box keeps its space</p>
-          <p class="visibility-demo none-box">Display none removes space</p>
-          <p class="visibility-demo">Next visible box</p>
-        </div>
-      </section>
-
-      <section id="bulletin">
-        <h2>Community Bulletin</h2>
-        <article class="newsArticle">
-          <p>
-            The city council invites residents to join upcoming neighborhood
-            programs focused on public safety, green spaces, youth activities,
-            and local volunteer opportunities. These programs are designed to
-            help families stay informed and connected throughout the season.
-          </p>
-          <p>
-            Residents can attend weekend cleanup drives, wellness camps,
-            cultural events, and public feedback meetings at community centers
-            across the city. Registration desks will open one hour before each
-            scheduled activity, and volunteers will be available to guide new
-            participants.
-          </p>
-          <p>
-            The council also encourages citizens to share suggestions for future
-            events. Feedback collected through the portal will help improve
-            planning, accessibility, and communication for all upcoming
-            community programs.
-          </p>
-        </article>
       </section>
 
       <section id="contact">
@@ -372,7 +339,10 @@
 
       function enlargeImage(image) {
         image.classList.toggle("enlarged");
-        console.log("Image enlarged state:", image.classList.contains("enlarged"));
+        console.log(
+          "Image enlarged state:",
+          image.classList.contains("enlarged"),
+        );
       }
 
       function countFeedbackCharacters() {
