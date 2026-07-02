@@ -48,6 +48,25 @@
         <h2 class="highlight">Community Events</h2>
         <p>Register for upcoming local events and city council programs.</p>
 
+        <h3>Upcoming Events</h3>
+        <div id="eventControls">
+          <select id="categoryFilter" onchange="renderEventCards(this.value, document.querySelector('#eventSearch').value)">
+            <option value="all">All Categories</option>
+            <option value="cleanup">Cleanup</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="workshop">Workshop</option>
+            <option value="music">Music</option>
+          </select>
+          <input
+            type="text"
+            id="eventSearch"
+            placeholder="Search events by name..."
+          />
+        </div>
+        <div id="loadingSpinner" class="spinner" style="display:none;"></div>
+        <p id="fetchStatus" class="feedback-note"></p>
+        <div id="eventCardsContainer"></div>
+
         <h3>Event Promo Video</h3>
         <video controls oncanplay="showVideoReadyMessage()">
           <source src="event-promo.mp4" type="video/mp4" />
@@ -134,16 +153,16 @@
         </table>
 
         <h3>Register for an Event</h3>
-        <form id="registrationForm">
+        <form id="registrationForm" novalidate>
           <label for="residentName">Name</label>
           <input
             type="text"
             id="residentName"
             name="residentName"
             placeholder="Enter your full name"
-            required
             autofocus
           />
+          <span class="field-error" id="nameError"></span>
 
           <label for="residentEmail">Email</label>
           <input
@@ -151,18 +170,18 @@
             id="residentEmail"
             name="residentEmail"
             placeholder="name@example.com"
-            required
           />
+          <span class="field-error" id="emailError"></span>
 
           <label for="eventDate">Event Date</label>
-          <input type="date" id="eventDate" name="eventDate" required />
+          <input type="date" id="eventDate" name="eventDate" />
+          <span class="field-error" id="dateError"></span>
 
           <label for="eventType">Event Type</label>
           <select
             id="eventType"
             name="eventType"
             onchange="saveEventPreference()"
-            required
           >
             <option value="">Select an event type</option>
             <option value="cleanup">Community Cleanup</option>
@@ -170,19 +189,20 @@
             <option value="health">Health Camp</option>
             <option value="workshop">Workshop</option>
           </select>
+          <span class="field-error" id="eventTypeError"></span>
 
           <label for="message">Message</label>
           <textarea
             id="message"
             name="message"
             placeholder="Share any accessibility needs or questions"
-            required
           ></textarea>
 
           <button type="submit">Submit Registration</button>
           <button type="button" onclick="clearPreferences()">
             Clear Preferences
           </button>
+          <p id="submitStatus" class="submit-status"></p>
           <output
             id="confirmationMessage"
             for="residentName eventType"
@@ -249,5 +269,8 @@
       <p>&copy; 2026 Local City Council</p>
     </footer>
     <script src="main.js"></script>
+    <!-- Task 14: jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="jquery-tasks.js"></script>
   </body>
 </html>
