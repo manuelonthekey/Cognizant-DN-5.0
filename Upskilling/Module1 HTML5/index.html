@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Community Event Portal</title>
+    <style>
+      #welcomeBanner {
+        background-color: #0d6efd;
+        color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .highlight {
+        background-color: #fff3cd;
+        color: #664d03;
+        padding: 2px 6px;
+        font-weight: bold;
+      }
+
+      .event-image {
+        width: 180px;
+        height: 120px;
+        object-fit: cover;
+        border: 3px solid #0d6efd;
+        cursor: pointer;
+        transition:
+          width 0.2s ease,
+          height 0.2s ease;
+      }
+
+      .event-image.enlarged {
+        width: 300px;
+        height: 200px;
+      }
+
+      table {
+        border-spacing: 16px;
+      }
+
+      caption {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      form {
+        max-width: 520px;
+        margin-top: 24px;
+        padding: 20px;
+        border: 1px solid #cfd8dc;
+        background-color: #f8fbfd;
+      }
+
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: bold;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 6px;
+        padding: 10px;
+        border: 1px solid #9ea7ad;
+        font: inherit;
+      }
+
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+
+      button {
+        margin-top: 16px;
+        padding: 10px 16px;
+        border: 0;
+        background-color: #0d6efd;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      output {
+        display: block;
+        margin-top: 16px;
+        color: #146c43;
+        font-weight: bold;
+      }
+
+      .feedback-note {
+        margin-top: 8px;
+        font-weight: bold;
+      }
+
+      video {
+        display: block;
+        max-width: 520px;
+        width: 100%;
+        margin-top: 12px;
+        border: 3px solid #0d6efd;
+      }
+    </style>
+  </head>
+  <body onbeforeunload="return warnUnfinishedForm(event);">
+    <!-- Navigation -->
+    <nav>
+      <h1>Local Community Event Portal</h1>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="help.html" target="_blank">Help</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <main>
+      <section id="home">
+        <h2>Welcome</h2>
+        <div id="welcomeBanner">
+          <p>
+            Welcome back, resident. Your dashboard has
+            <span style="color: red; font-weight: bold"
+              >special offer: free event registration this week</span
+            >.
+          </p>
+          <p class="highlight">
+            Check featured events and city services below.
+          </p>
+        </div>
+        <p>
+          Find <span class="highlight">local events</span>, city updates, and
+          resident services in one place.
+        </p>
+      </section>
+
+      <section id="events">
+        <h2 class="highlight">Community Events</h2>
+        <p>Register for upcoming local events and city council programs.</p>
+
+        <h3>Event Promo Video</h3>
+        <video controls oncanplay="showVideoReadyMessage()">
+          <source src="event-promo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p id="videoMessage" class="feedback-note"></p>
+
+        <h3>Nearby Events</h3>
+        <button type="button" onclick="findNearbyEvents()">
+          Find Nearby Events
+        </button>
+        <p id="locationMessage" class="feedback-note">
+          Click the button to find events near your current location.
+        </p>
+
+        <table>
+          <caption>
+            Photos from Past Community Events
+          </caption>
+          <tr>
+            <td>
+              <img
+                src="Exercise1.jpg"
+                alt="Residents participating in a community cleanup event"
+                title="Community Cleanup"
+                class="event-image"
+                ondblclick="enlargeImage(this)"
+              />
+              <p>Community Cleanup</p>
+            </td>
+            <td>
+              <img
+                src="Exercise2.jpg"
+                alt="Families attending the city summer festival"
+                title="Summer Festival"
+                class="event-image"
+                ondblclick="enlargeImage(this)"
+              />
+              <p>Summer Festival</p>
+            </td>
+            <td>
+              <img
+                src="Exercise3.jpg"
+                alt="Volunteers organizing donations at a food drive"
+                title="Food Drive"
+                class="event-image"
+                ondblclick="enlargeImage(this)"
+              />
+              <p>Food Drive</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img
+                src="Exercise4.png"
+                alt="Residents visiting a local health camp"
+                title="Health Camp"
+                class="event-image"
+                ondblclick="enlargeImage(this)"
+              />
+              <p>Health Camp</p>
+            </td>
+            <td>
+              <img
+                src="Exercise5.jpg"
+                alt="Children and adults browsing books at a community book fair"
+                title="Book Fair"
+                class="event-image"
+                ondblclick="enlargeImage(this)"
+              />
+              <p>Book Fair</p>
+            </td>
+            <td>
+              <img
+                src="Exercise6.jpg"
+                alt="Performers on stage during a community music night"
+                title="Music Night"
+                class="event-image"
+                ondblclick="enlargeImage(this)"
+              />
+              <p>Music Night</p>
+            </td>
+          </tr>
+        </table>
+
+        <h3>Register for an Event</h3>
+        <form id="registrationForm">
+          <label for="residentName">Name</label>
+          <input
+            type="text"
+            id="residentName"
+            name="residentName"
+            placeholder="Enter your full name"
+            required
+            autofocus
+          />
+
+          <label for="residentEmail">Email</label>
+          <input
+            type="email"
+            id="residentEmail"
+            name="residentEmail"
+            placeholder="name@example.com"
+            required
+          />
+
+          <label for="eventDate">Event Date</label>
+          <input type="date" id="eventDate" name="eventDate" required />
+
+          <label for="eventType">Event Type</label>
+          <select id="eventType" name="eventType" onchange="saveEventPreference()" required>
+            <option value="">Select an event type</option>
+            <option value="cleanup">Community Cleanup</option>
+            <option value="festival">Festival</option>
+            <option value="health">Health Camp</option>
+            <option value="workshop">Workshop</option>
+          </select>
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Share any accessibility needs or questions"
+            required
+          ></textarea>
+
+          <button type="submit">Submit Registration</button>
+          <button type="button" onclick="clearPreferences()">
+            Clear Preferences
+          </button>
+          <output
+            id="confirmationMessage"
+            for="residentName eventType"
+          ></output>
+        </form>
+
+        <h3>Event Feedback</h3>
+        <form id="feedbackForm">
+          <label for="phoneNumber">Phone Number</label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="Enter 10 digit phone number"
+            onblur="validatePhoneNumber()"
+            required
+          />
+          <p id="phoneMessage" class="feedback-note"></p>
+
+          <label for="feedbackEvent">Select Event</label>
+          <select
+            id="feedbackEvent"
+            name="feedbackEvent"
+            onchange="showEventFee()"
+            required
+          >
+            <option value="">Choose an event</option>
+            <option value="0">Community Cleanup - Free</option>
+            <option value="10">Summer Festival - $10</option>
+            <option value="5">Food Drive - $5</option>
+            <option value="15">Music Night - $15</option>
+          </select>
+          <p id="eventFee" class="feedback-note">Selected event fee: $0</p>
+
+          <label for="feedbackMessage">Feedback</label>
+          <textarea
+            id="feedbackMessage"
+            name="feedbackMessage"
+            placeholder="Type your feedback"
+            onkeyup="countFeedbackCharacters()"
+            onkeydown="countFeedbackCharacters()"
+            required
+          ></textarea>
+          <p id="characterCount" class="feedback-note">Characters typed: 0</p>
+
+          <button type="button" onclick="showFeedbackConfirmation()">
+            Submit Feedback
+          </button>
+          <output id="feedbackConfirmation"></output>
+        </form>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>
+          Reach the city council for event support, venue details, and community
+          assistance.
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Local City Council</p>
+    </footer>
+    <script>
+      const registrationForm = document.getElementById("registrationForm");
+      const eventTypeSelect = document.getElementById("eventType");
+      const confirmationMessage = document.getElementById(
+        "confirmationMessage",
+      );
+      const trackedForms = document.querySelectorAll("form");
+      let isFormStarted = false;
+      let isFormSubmitted = false;
+
+      trackedForms.forEach(function (form) {
+        form.addEventListener("input", function () {
+          isFormStarted = true;
+        });
+
+        form.addEventListener("change", function () {
+          isFormStarted = true;
+        });
+      });
+
+      const savedEventType = localStorage.getItem("preferredEventType");
+
+      console.log("Community Event Portal script loaded.");
+
+      if (savedEventType) {
+        eventTypeSelect.value = savedEventType;
+        console.log("Loaded preferred event type:", savedEventType);
+      }
+
+      registrationForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        isFormSubmitted = true;
+
+        const name = document.getElementById("residentName").value;
+        const eventType = document.getElementById("eventType");
+        const selectedEvent = eventType.options[eventType.selectedIndex].text;
+
+        console.log("Registration submitted:", {
+          name: name,
+          selectedEvent: selectedEvent,
+        });
+        confirmationMessage.value = `Thank you, ${name}. Your registration for ${selectedEvent} has been received.`;
+      });
+
+      function saveEventPreference() {
+        localStorage.setItem("preferredEventType", eventTypeSelect.value);
+        sessionStorage.setItem("lastSelectedEventType", eventTypeSelect.value);
+        console.log("Saved event preference:", eventTypeSelect.value);
+      }
+
+      function clearPreferences() {
+        localStorage.clear();
+        sessionStorage.clear();
+        eventTypeSelect.value = "";
+        console.log("Cleared localStorage and sessionStorage.");
+        confirmationMessage.value = "Saved preferences have been cleared.";
+      }
+
+      function validatePhoneNumber() {
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        const phoneMessage = document.getElementById("phoneMessage");
+        const phonePattern = /^[0-9]{10}$/;
+        const isValidPhone = phonePattern.test(phoneNumber);
+
+        console.log("Phone validation result:", isValidPhone);
+        phoneMessage.textContent = isValidPhone
+          ? "Valid phone number."
+          : "Please enter a valid 10 digit phone number.";
+      }
+
+      function showEventFee() {
+        const feedbackEvent = document.getElementById("feedbackEvent");
+        const eventFee = document.getElementById("eventFee");
+        const selectedFee = feedbackEvent.value || "0";
+
+        console.log("Selected feedback event fee:", selectedFee);
+        eventFee.textContent = `Selected event fee: $${selectedFee}`;
+      }
+
+      function showFeedbackConfirmation() {
+        const feedbackConfirmation = document.getElementById(
+          "feedbackConfirmation",
+        );
+
+        isFormSubmitted = true;
+        console.log("Feedback submitted.");
+        feedbackConfirmation.value = "Thank you for sharing your feedback.";
+      }
+
+      function enlargeImage(image) {
+        image.classList.toggle("enlarged");
+        console.log("Image enlarged state:", image.classList.contains("enlarged"));
+      }
+
+      function countFeedbackCharacters() {
+        const feedbackMessage = document.getElementById("feedbackMessage");
+        const characterCount = document.getElementById("characterCount");
+        const typedCharacters = feedbackMessage.value.length;
+
+        console.log("Feedback character count:", typedCharacters);
+        characterCount.textContent = `Characters typed: ${typedCharacters}`;
+      }
+
+      function showVideoReadyMessage() {
+        console.log("Promo video can play.");
+        document.getElementById("videoMessage").textContent =
+          "Video ready to play";
+      }
+
+      function warnUnfinishedForm(event) {
+        if (isFormStarted && !isFormSubmitted) {
+          event.preventDefault();
+          event.returnValue =
+            "You have unfinished form changes. Are you sure you want to leave?";
+          return event.returnValue;
+        }
+      }
+
+      function findNearbyEvents() {
+        const locationMessage = document.getElementById("locationMessage");
+
+        if (!navigator.geolocation) {
+          locationMessage.textContent =
+            "Geolocation is not supported by this browser.";
+          return;
+        }
+
+        locationMessage.textContent = "Finding your location...";
+        console.log("Requesting geolocation with high accuracy.");
+
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            const latitude = position.coords.latitude.toFixed(6);
+            const longitude = position.coords.longitude.toFixed(6);
+
+            console.log("Geolocation success:", {
+              latitude: latitude,
+              longitude: longitude,
+            });
+            locationMessage.textContent = `Your coordinates are Latitude: ${latitude}, Longitude: ${longitude}. Nearby event search is ready.`;
+          },
+          function (error) {
+            console.log("Geolocation error:", error.code);
+            if (error.code === error.PERMISSION_DENIED) {
+              locationMessage.textContent =
+                "Location permission was denied. Please allow location access to find nearby events.";
+            } else if (error.code === error.TIMEOUT) {
+              locationMessage.textContent =
+                "Location request timed out. Please try again.";
+            } else {
+              locationMessage.textContent =
+                "Unable to retrieve your location right now.";
+            }
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+          },
+        );
+      }
+    </script>
+  </body>
+</html>
