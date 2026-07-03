@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 1.2 – Bootstrap 5 via npm</title>
+
+    <!-- Bootstrap 5 CSS from local node_modules (installed via: npm install bootstrap@5.3.3) -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  </head>
+  <body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Community Portal</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="bg-dark text-white text-center py-5">
+      <div class="container">
+        <h1 class="display-5 fw-bold">Bootstrap 5 via npm</h1>
+        <p class="lead">
+          Files served from <code class="text-warning">node_modules/</code> &mdash; Exercise 1.2
+        </p>
+        <a href="#setup" class="btn btn-outline-light btn-lg mt-2">How it works</a>
+      </div>
+    </div>
+
+    <!-- Setup Steps -->
+    <section id="setup" class="container my-5">
+      <h2 class="mb-4">Setup Steps</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card border-dark h-100">
+            <div class="card-header bg-dark text-white">Step 1 — Initialize project</div>
+            <div class="card-body">
+              <pre class="bg-light p-3 rounded mb-0"><code>npm init -y</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-dark h-100">
+            <div class="card-header bg-dark text-white">Step 2 — Install Bootstrap</div>
+            <div class="card-body">
+              <pre class="bg-light p-3 rounded mb-0"><code>npm install bootstrap@5.3.3</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-dark h-100">
+            <div class="card-header bg-dark text-white">Step 3 — Link CSS</div>
+            <div class="card-body">
+              <pre class="bg-light p-3 rounded mb-0"><code>&lt;link rel="stylesheet"
+  href="node_modules/bootstrap/
+        dist/css/bootstrap.min.css"
+/&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-dark h-100">
+            <div class="card-header bg-dark text-white">Step 4 — Link JS Bundle</div>
+            <div class="card-body">
+              <pre class="bg-light p-3 rounded mb-0"><code>&lt;script src="node_modules/bootstrap/
+  dist/js/bootstrap.bundle.min.js"&gt;
+&lt;/script&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components Demo -->
+    <section class="container mb-5">
+      <h2 class="mb-4">Components Demo</h2>
+
+      <h6>Buttons</h6>
+      <div class="mb-3">
+        <button class="btn btn-primary me-2">Primary</button>
+        <button class="btn btn-secondary me-2">Secondary</button>
+        <button class="btn btn-success me-2">Success</button>
+        <button class="btn btn-danger me-2">Danger</button>
+        <button class="btn btn-outline-dark">Outline</button>
+      </div>
+
+      <h6>Badges</h6>
+      <div class="mb-3">
+        <span class="badge bg-primary me-1">Events</span>
+        <span class="badge bg-success me-1">Available</span>
+        <span class="badge bg-warning text-dark me-1">Limited</span>
+        <span class="badge bg-danger">Full</span>
+      </div>
+
+      <h6>Seat Progress</h6>
+      <div class="mb-3">
+        <label class="form-label text-muted">Community Cleanup — 40/50 seats filled</label>
+        <div class="progress">
+          <div class="progress-bar bg-success" style="width:80%">80%</div>
+        </div>
+      </div>
+
+      <h6>Toast Notification</h6>
+      <button class="btn btn-dark" id="toastBtn">Show Toast</button>
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index:11">
+        <div id="liveToast" class="toast">
+          <div class="toast-header">
+            <strong class="me-auto">Community Portal</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+          </div>
+          <div class="toast-body">Registration submitted successfully!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+      <p class="mb-0">&copy; 2026 Local City Council &mdash; Bootstrap loaded from npm</p>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle from local node_modules -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById("toastBtn").addEventListener("click", function () {
+        new bootstrap.Toast(document.getElementById("liveToast")).show();
+      });
+    </script>
+  </body>
+</html>
+<!-- Bootstrap Directory Structure
+When you download Bootstrap (whether via npm or manually), it provides a well-organized directory structure to help you manage your styles, scripts, and assets.
+
+Here is the purpose of the primary folders:
+
+CSS (css/): This folder contains all the compiled and minified CSS files (like bootstrap.min.css) that provide the styling, grid system, and layout utilities for your web pages.
+JS (js/): This folder holds the JavaScript plugins required for interactive components (like modals, dropdowns, tooltips, and carousels). The bootstrap.bundle.min.js file is the most important one here because it includes both Bootstrap's JS and Popper.js (which handles the positioning of dropdowns and tooltips).
+Icons: While Bootstrap 5 doesn't include icons in the core package (they are shipped separately via the bootstrap-icons library), the icons folder (when downloaded) contains SVG files and icon web fonts used to add scalable vector icons to buttons, menus, and other components.-->
